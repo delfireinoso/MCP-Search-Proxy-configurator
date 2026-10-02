@@ -1,4 +1,4 @@
-MCP-Search-Proxy configurator EN
+#MCP-Search-Proxy configurator EN
 
 🛠️ Tool to convert an MCP service file into the UPSTREAMS variable to configure MCP-Search-Proxy by creating the .env file
 📋 Description
