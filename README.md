@@ -1,4 +1,4 @@
-#MCP-Search-Proxy configurator EN
+# MCP-Search-Proxy configurator
 
 🛠️ Tool to convert an MCP service file into the UPSTREAMS variable to configure MCP-Search-Proxy by creating the .env file
 📋 Description
@@ -30,55 +30,38 @@ Step 1: Prepare the input file
 
 In the MCP-Search-Proxy directory, create or edit the UPSTREAMS.txt file with your MCP services. Each line should be the command to start a server:
 
-# Example of UPSTREAMS.txt
-sqlite-server --data /tmp/mcp-sqlite.db
-git-server
-openweather-server --api-key YOUR_API_KEY_HERE
+Example of UPSTREAMS.txt
+	sqlite-server --data /tmp/mcp-sqlite.db
+	git-server
+	openweather-server|YOUR_API_KEY_HERE
 
 Step 2: Run the converter
 
 In the same directory where .env.example is also located:
-
+```
 go run main.go
+```
 
 Step 3: Verify the result
 
 The .env file will be generated automatically with the UPSTREAMS variable configured:
 
+```
 cat .env
-
-Expected output:
-
-# MCP Converter - Generated file
-# UPSTREAMS variable overwritten by converter
-
-UPSTREAMS=sqlite-server --data /tmp/mcp-sqlite.db,git-server,openweather-server --api-key YOUR_API_KEY_HERE
+```
 
 To update MCP-Search-Proxy with the new UPSTREAMS values:
-
+```
 	Docker compose up
-
-📁 File structure
-
-MCP-Search-Proxy/
-├── main.go          # Source code of the converter
-├── UPSTREAMS.txt    # Input file with MCP services
-├── .env             # Output file (generated automatically)
-├── .env.example     # Example of output format
-└── README.md        # This file
-
-🔧 Environment configuration
-Dependencies
-
+```
 This project uses standard Go, so it does not require the installation of additional dependencies.
-Running without Go
+## Running without Go
 
 You can use the compiled program, download your required binary and run
-
+```
 	./MCP-Search-Proxy-configurator
-
+```
 or
-
 ```
 MCP-Search-Proxy-configurator.exe
 ```
@@ -90,21 +73,13 @@ The UPSTREAMS.txt file must follow these rules:
     Execution commands: Each line is a valid command to start an MCP server.
     Comments: Lines that start with # are ignored.
     Blank lines: Are automatically ignored.
-    Arguments: Commands can include arguments.
+    Arguments: Commands can keys
 
 Valid example:
 
 # Example MCP server
-server1 --flag value
-server2 --flag value --flag2=value
-
-Invalid example:
-
-# This is a comment
-# Invalid commands here
-
-# This command contains commas
-server1,server2 --flag value
+server1 
+server2|Key
 
 🎯 Practical use with MCP-proxy-server
 🛠️ Integration example
